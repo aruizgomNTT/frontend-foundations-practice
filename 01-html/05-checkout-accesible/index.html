@@ -3,9 +3,311 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Checkout</title>
+    <meta name="description" content="Pantalla de checkout accesible para finalizar compra" />
+    <title>Checkout - Tech Store</title>
   </head>
   <body>
-    <!-- Construye aquí la pantalla completa. -->
+    <header>
+      <h1>Tech Store</h1>
+      <nav aria-label="Navegación principal">
+        <ul>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/productos">Productos</a></li>
+          <li><a href="/carrito">Carrito</a></li>
+          <li><a href="/ayuda">Ayuda</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <h1>Finalizar compra</h1>
+
+      <!-- Progreso del proceso -->
+      <nav aria-label="Progreso del proceso de compra">
+        <ol>
+          <li>Carrito <span aria-label="completado">✓</span></li>
+          <li><strong>Envío</strong> <span aria-label="paso actual">(actual)</span></li>
+          <li>Pago</li>
+        </ol>
+      </nav>
+
+      <!-- Resumen de productos -->
+      <section>
+        <h2>Resumen del pedido</h2>
+        <table>
+          <caption>Productos en el carrito</caption>
+          <thead>
+            <tr>
+              <th scope="col">Producto</th>
+              <th scope="col">Precio unitario</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Laptop Developer Pro 15"</td>
+              <td>€999.00</td>
+              <td>1</td>
+              <td>€999.00</td>
+            </tr>
+            <tr>
+              <td>Monitor 4K 27"</td>
+              <td>€349.00</td>
+              <td>2</td>
+              <td>€698.00</td>
+            </tr>
+            <tr>
+              <td>Teclado mecánico RGB</td>
+              <td>€129.00</td>
+              <td>1</td>
+              <td>€129.00</td>
+            </tr>
+          </tbody>
+        </table>
+        <p><a href="/carrito">Modificar carrito</a></p>
+      </section>
+
+      <!-- Formulario de dirección de envío -->
+      <section>
+        <h2>Dirección de envío</h2>
+        <form id="checkout-form">
+          <fieldset>
+            <legend>Datos personales</legend>
+            
+            <label for="nombre">Nombre completo <span aria-label="requerido">*</span></label>
+            <input 
+              type="text" 
+              id="nombre" 
+              name="nombre" 
+              required 
+              minlength="3"
+              maxlength="100"
+              placeholder="Juan Pérez García"
+            />
+            <p><small>Mínimo 3 caracteres.</small></p>
+            
+            <label for="email">Email <span aria-label="requerido">*</span></label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              required
+              placeholder="tu@email.com"
+            />
+            
+            <label for="telefono">Teléfono <span aria-label="requerido">*</span></label>
+            <input 
+              type="tel" 
+              id="telefono" 
+              name="telefono" 
+              required
+              pattern="[0-9]{9,}"
+              placeholder="612345678"
+            />
+            <p><small>Mínimo 9 dígitos numéricos.</small></p>
+          </fieldset>
+
+          <fieldset>
+            <legend>Dirección de envío</legend>
+            
+            <label for="calle">Calle y número <span aria-label="requerido">*</span></label>
+            <input 
+              type="text" 
+              id="calle" 
+              name="calle" 
+              required 
+              minlength="5"
+              maxlength="100"
+              placeholder="Calle Principal, 42"
+            />
+            <p><small>Mínimo 5 caracteres.</small></p>
+            
+            <label for="ciudad">Ciudad <span aria-label="requerido">*</span></label>
+            <input 
+              type="text" 
+              id="ciudad" 
+              name="ciudad" 
+              required 
+              minlength="2"
+              maxlength="50"
+              placeholder="Madrid"
+            />
+            <p><small>Mínimo 2 caracteres.</small></p>
+            
+            <label for="codigopostal">Código postal <span aria-label="requerido">*</span></label>
+            <input 
+              type="text" 
+              id="codigopostal" 
+              name="codigopostal" 
+              required 
+              pattern="[0-9]{5}"
+              placeholder="28001"
+            />
+            <p><small>Exactamente 5 dígitos (ej: 28001).</small></p>
+            
+            <label for="pais">País <span aria-label="requerido">*</span></label>
+            <select id="pais" name="pais" required>
+              <option value="">-- Selecciona un país --</option>
+              <option value="es">España</option>
+              <option value="pt">Portugal</option>
+              <option value="fr">Francia</option>
+              <option value="it">Italia</option>
+              <option value="de">Alemania</option>
+              <option value="uk">Reino Unido</option>
+            </select>
+            
+            <label for="notas">Notas de entrega (opcional)</label>
+            <textarea 
+              id="notas" 
+              name="notas" 
+              maxlength="500"
+              rows="3"
+              placeholder="Ej: Llamar antes de entregar"
+            ></textarea>
+            <p><small>Máximo 500 caracteres.</small></p>
+          </fieldset>
+
+          <fieldset>
+            <legend>¿Es la dirección de facturación la misma?</legend>
+            
+            <label>
+              <input 
+                type="radio" 
+                name="facturacion" 
+                value="igual" 
+                required
+                checked
+              />
+              Sí, usar la misma dirección
+            </label>
+            
+            <label>
+              <input 
+                type="radio" 
+                name="facturacion" 
+                value="diferente"
+              />
+              No, usar dirección diferente
+            </label>
+          </fieldset>
+        </form>
+      </section>
+
+      <!-- Método de envío -->
+      <section>
+        <form id="checkout-form">
+          <fieldset>
+            <legend>Método de envío <span aria-label="requerido">*</span></legend>
+            
+            <label>
+              <input 
+                type="radio" 
+                name="envio" 
+                value="standard" 
+                required
+                checked
+              />
+              Envío estándar - 5-7 días (Gratuito)
+            </label>
+            
+            <label>
+              <input 
+                type="radio" 
+                name="envio" 
+                value="express"
+              />
+              Envío express - 2-3 días (€15.00)
+            </label>
+            
+            <label>
+              <input 
+                type="radio" 
+                name="envio" 
+                value="urgente"
+              />
+              Envío urgente - Siguiente día (€40.00)
+            </label>
+          </fieldset>
+        </form>
+      </section>
+
+      <!-- Resumen económico -->
+      <section>
+        <h2>Resumen del pago</h2>
+        <table>
+          <caption>Desglose de costes</caption>
+          <tbody>
+            <tr>
+              <th scope="row">Subtotal (3 productos)</th>
+              <td>€1,826.00</td>
+            </tr>
+            <tr>
+              <th scope="row">IVA (21%)</th>
+              <td>€383.46</td>
+            </tr>
+            <tr>
+              <th scope="row">Envío</th>
+              <td>Gratuito</td>
+            </tr>
+            <tr style="font-weight: bold;">
+              <th scope="row">Total a pagar</th>
+              <td>€2,209.46</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Botón de compra -->
+      <section>
+        <h2>Confirmar pedido</h2>
+        <form id="checkout-form">
+          <fieldset>
+            <legend>Aceptación de términos</legend>
+            <label>
+              <input 
+                type="checkbox" 
+                name="condiciones" 
+                required
+              />
+              Acepto los <a href="/terminos">términos y condiciones</a> y la <a href="/privacidad">política de privacidad</a> <span aria-label="requerido">*</span>
+            </label>
+          </fieldset>
+          
+          <button type="submit">
+            Confirmar y pagar €2,209.46
+          </button>
+        </form>
+        
+        <p><a href="/carrito">Volver al carrito</a></p>
+      </section>
+    </main>
+
+    <footer>
+      <section>
+        <h2>Ayuda y soporte</h2>
+        <ul>
+          <li><a href="/contacto">Contacta con nosotros</a></li>
+          <li><a href="/faq">Preguntas frecuentes</a></li>
+          <li><a href="/devolucion">Política de devolución</a></li>
+          <li><a href="/garantia">Garantía y cambios</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Legal</h2>
+        <ul>
+          <li><a href="/terminos">Términos y condiciones</a></li>
+          <li><a href="/privacidad">Política de privacidad</a></li>
+          <li><a href="/cookies">Política de cookies</a></li>
+          <li><a href="/aviso-legal">Aviso legal</a></li>
+        </ul>
+      </section>
+
+      <p>
+        Tech Store © 2024. Todos los derechos reservados. | 
+        Atención al cliente: <a href="tel:+34912345678">+34 91 234 5678</a>
+      </p>
+    </footer>
   </body>
 </html>
